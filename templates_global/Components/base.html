@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Meeting AI{% endblock %}</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <link href="{% static 'CSS/main.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+    {% block css %}{% endblock %}
+</head>
+<body class="app-layout">
+    <header>
+        {% block header %}
+            {% include "Components/navbar.html" %}
+        {% endblock %}
+    </header>
+
+    <main class="app-main">
+        {% block main %}{% endblock %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        {% block footer %}
+            {% include "Components/footer.html" %}
+        {% endblock %}
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
