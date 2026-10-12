@@ -1,16 +1,244 @@
-{% extends "Components/base.html" %}
 
-{% block title %}fitClothes{% endblock %}
+{% extends "Components/base.html" %}
+{% load static %}
+
+{% block title %}FitClothes{% endblock %}
 
 {% block content %}
-<section class="container py-5">
-    <figure class="text-center">
-        <blockquote class="blockquote">
-            <p>Valgame dios</p>
-        </blockquote>
-        <figcaption class="blockquote-footer">
-            Someone famous in <cite title="Source Title">Source Title</cite>
-        </figcaption>
-    </figure>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-wrap">
+        <div class="row hero-row">
+            <div class="col s12 m6 hero-text">
+                <h1>Bienvenido a FitClothes</h1>
+                <p>Encuentra el estilo perfecto para tu entrenamiento.</p>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- PRODUCTOS DESTACADOS -->
+<section class="productos" id="destacados">
+    <div class="productos-wrap">
+        <div class="row productos-row">
+
+            <!-- PRODUCTO 1 -->
+            <div class="col s6 m3">
+                <div class="producto">
+                    <div class="carousel-container">
+
+                        <div class="carousel-track">
+                            <img src="{% static 'images/batman.jpg' %}"
+                                 class="producto-img"
+                                 alt="Batman Compression Tee">
+
+                            <img src="{% static 'images/batman back.jpg' %}"
+                                 class="producto-img"
+                                 alt="Vista trasera Batman Compression Tee">
+                        </div>
+
+                        <button class="carousel-button carousel-button-prev prev"
+                                type="button"
+                                aria-label="Imagen anterior">
+                            &#10094;
+                        </button>
+
+                        <button class="carousel-button carousel-button-next next"
+                                type="button"
+                                aria-label="Imagen siguiente">
+                            &#10095;
+                        </button>
+
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 2 -->
+            <div class="col s6 m3">
+                <div class="producto">
+                    <div class="carousel-container">
+
+                        <div class="carousel-track">
+                            <img src="{% static 'images/jopface.jpg' %}"
+                                 class="producto-img"
+                                 alt="JOP Compression Longsleeves">
+
+                            <img src="{% static 'images/batman.jpg' %}"
+                                 class="producto-img"
+                                 alt="Vista alternativa del producto">
+                        </div>
+
+                        <button class="carousel-button carousel-button-prev prev"
+                                type="button"
+                                aria-label="Imagen anterior">
+                            &#10094;
+                        </button>
+
+                        <button class="carousel-button carousel-button-next next"
+                                type="button"
+                                aria-label="Imagen siguiente">
+                            &#10095;
+                        </button>
+
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 3 -->
+            <div class="col s6 m3">
+                <div class="producto">
+                    <div class="carousel-container">
+
+                        <div class="carousel-track">
+                            <img src="{% static 'images/batman back.jpg' %}"
+                                 class="producto-img"
+                                 alt="Batman Compression Tee Back">
+
+                            <img src="{% static 'images/batman.jpg' %}"
+                                 class="producto-img"
+                                 alt="Vista frontal Batman Compression Tee">
+                        </div>
+
+                        <button class="carousel-button carousel-button-prev prev"
+                                type="button"
+                                aria-label="Imagen anterior">
+                            &#10094;
+                        </button>
+
+                        <button class="carousel-button carousel-button-next next"
+                                type="button"
+                                aria-label="Imagen siguiente">
+                            &#10095;
+                        </button>
+
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTO 4 -->
+            <div class="col s6 m3">
+                <div class="producto">
+                    <div class="carousel-container">
+
+                        <div class="carousel-track">
+                            <img src="{% static 'images/jopface.jpg' %}"
+                                 class="producto-img"
+                                 alt="Moisés Compression Hoodie">
+
+                            <img src="{% static 'images/batman back.jpg' %}"
+                                 class="producto-img"
+                                 alt="Vista alternativa del producto">
+                        </div>
+
+                        <button class="carousel-button carousel-button-prev prev"
+                                type="button"
+                                aria-label="Imagen anterior">
+                            &#10094;
+                        </button>
+
+                        <button class="carousel-button carousel-button-next next"
+                                type="button"
+                                aria-label="Imagen siguiente">
+                            &#10095;
+                        </button>
+
+                        <div class="carousel-dots"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.querySelectorAll('.producto').forEach(function (card) {
+    const container = card.querySelector('.carousel-container');
+    const track = card.querySelector('.carousel-track');
+    const prev = card.querySelector('.prev');
+    const next = card.querySelector('.next');
+    const dotsContainer = card.querySelector('.carousel-dots');
+
+    const images = Array.from(track.querySelectorAll('img'));
+    let currentIndex = 0;
+
+    // Crear puntos indicadores automáticamente
+    images.forEach(function (_, index) {
+        const dot = document.createElement('button');
+
+        dot.type = 'button';
+        dot.classList.add('carousel-dot');
+        dot.setAttribute('aria-label', 'Mostrar imagen ' + (index + 1));
+
+        dot.addEventListener('click', function () {
+            showImage(index);
+        });
+
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = Array.from(dotsContainer.querySelectorAll('.carousel-dot'));
+
+    function showImage(index) {
+        currentIndex = Math.max(0, Math.min(index, images.length - 1));
+
+        track.scrollTo({
+            left: currentIndex * track.clientWidth,
+            behavior: 'smooth'
+        });
+
+        updateCarousel();
+    }
+
+    function updateCarousel() {
+        prev.hidden = currentIndex === 0;
+        next.hidden = currentIndex === images.length - 1;
+
+        dots.forEach(function (dot, index) {
+            dot.classList.toggle('active', index === currentIndex);
+            dot.setAttribute(
+                'aria-current',
+                index === currentIndex ? 'true' : 'false'
+            );
+        });
+    }
+
+    prev.addEventListener('click', function () {
+        showImage(currentIndex - 1);
+    });
+
+    next.addEventListener('click', function () {
+        showImage(currentIndex + 1);
+    });
+
+    // Sincronizar los controles si el usuario desliza la imagen
+    let scrollTimeout;
+
+    track.addEventListener('scroll', function () {
+        clearTimeout(scrollTimeout);
+
+        scrollTimeout = setTimeout(function () {
+            currentIndex = Math.round(
+                track.scrollLeft / track.clientWidth
+            );
+
+            updateCarousel();
+        }, 100);
+    });
+
+    // Ajustar la posición cuando cambia el tamaño de pantalla
+    window.addEventListener('resize', function () {
+        track.scrollLeft = currentIndex * track.clientWidth;
+    });
+
+    updateCarousel();
+});
+</script>
 {% endblock %}
